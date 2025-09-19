@@ -1,0 +1,78 @@
+////////Parameters for DRC///////////////////////////////////////////////
+////////General Params  Unit: um/////////////////////////////////////////
+////////Calibre Keyword: VARIABLE--Ref to Calibre SVRF user manual///////
+////////Calibre Keyword: include--Ref to Calibre SVRF user manual///////
+//include /home/xuguang/virtuosoworkspace/workspace/Techfiles/MoS2layer.inc // layers are defined in MoS2layer.inc
+layer Metal1       0 
+layer Via1         1
+layer Gate         2 
+layer Via2         3  
+layer Metal3       5        
+layer Mchannel     6    
+layer Subs         100    
+////////Calibre Keyword: layer--Ref to Calibre SVRF user manual/////////
+////////////////////////////////////////////////////////////////////////
+///////////RULE CHECK MACROS////////////////////////////////////////////
+DMACRO SpaceCheck Metal1 Gate Metal3 Via1 Via2
+{
+@ Define a MACRO for layer spacing check
+EXT Via2 < 3      ABUT < 90
+EXT Gate < 4      ABUT < 90
+EXT Metal3 < 4     ABUT < 90
+EXT Metal1 < 4  ABUT < 90
+EXT Via1 < 3   ABUT < 90
+EXT Metal3 Via1 < 4
+EXT Metal1 Via2 < 4
+
+EXT Metal1 Metal3 < 4
+EXT Metal1 Gate < 4
+EXT Gate Metal3 < 4
+}
+DMACRO WidthCheck Metal1 Gate Metal3 Via1 Via2
+{
+@ Define a MACRO Template for layer width check
+INT Metal1 < 4       ABUT < 90
+INT Gate < 4       ABUT < 90
+INT Metal3 < 4      ABUT < 90
+INT Via1 < 3       ABUT < 90
+INT Via2 < 3       ABUT < 90
+}
+DMACRO ExtendCheck Gate Metal3 Via1 Via2 Metal1  
+{
+@ Define a MACRO for layer extending check
+
+ENC Gate Via1 < 3
+ENC Metal1 Via1 < 3
+ENC Metal3 Via2 < 3
+ENC Gate Via2 < 3
+}
+
+////////////////////////////////////////////////////////////////////////
+///////RULE CHECKERS////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+Space_Check {
+CMACRO SpaceCheck Metal1 Gate Metal3 Via1 Via2
+}
+Width_Check {
+CMACRO WidthCheck Metal1 Gate Metal3 Via1 Via2 
+}
+Extend_Check {
+CMACRO ExtendCheck Gate Metal3 Via1 Via2 Metal1 
+}
+
+Overlapcheck{ 
+INTERACT Mchannel Via2
+
+}
+
+
+
+
+
+
+
+
+
+

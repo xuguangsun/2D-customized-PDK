@@ -1,0 +1,9 @@
+layer Subs         1
+layer Active       2 
+layer GO1          3   
+layer Gate         4  
+layer NSD          5        
+layer Contact      6     
+layer Cont         7  
+layer Metal1       8    
+//layer text      230 

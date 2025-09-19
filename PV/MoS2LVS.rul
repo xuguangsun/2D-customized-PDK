@@ -1,0 +1,89 @@
+TITLE   "LVS Rule File for NMoS2PDK"
+
+LVS POWER NAME VDD VDC VSS
+LVS GROUND NAME GND gnd?
+LVS REDUCE PARALLEL MOS yes
+LVS REDUCE SERIES MOS yes
+LVS REDUCE SEMI SERIES MOS yes
+LVS FILTER UNUSED MOS no
+LVS RECOGNIZE GATES all
+LVS COMPONENT TYPE PROPERTY element
+LVS COMPONENT SUBTYPE PROPERTY model
+LVS IGNORE PORTS no
+//LVS PUSH DEVICES YES
+LVS PUSH DEVICES SEPARATE PROPERTIES YES
+//LAYOUT NETLIST SEPARATED PROPERTIES YES
+LVS REPORT mask.lvs.rep
+LVS REPORT OPTION N
+LVS REPORT MAXIMUM 500
+MASK RESULTS DATABASE maskdb
+MASK SVDB DIRECTORY svdb QUERY CCI
+
+precision 1000
+resolution 250
+
+TEXT LAYER Gate Metal1 Metal3 Subs Via1 Via2 Mchannel
+PORT LAYER TEXT Gate Metal1 Metal3 
+
+//////////////////////////////////////////
+layer Metal1       0 
+layer Via1         1
+layer Gate         2 
+layer Via2         3  
+layer Metal3       5        
+layer Mchannel     6    
+layer Subs         100 
+//include /home/xuguang/virtuosoworkspace/workspace/Techfiles/MoS2layer.inc
+//SD=Active not Gate
+connect Metal1 Gate by Via1
+connect Metal3 Gate by Via2
+//connect Active NSD 
+
+
+//PMOS=Gate and GO1
+NMOS=Gate and Mchannel 
+NCHANNEL=NMOS not Metal3 
+//PCHANNEL=PMOS not Metal1
+SD=Metal3 and Mchannel
+//PSD=Metal1 and GO1
+
+connect SD Metal3
+//CONNECT Metal1 PSD
+CONNECT NCHANNEL Gate
+//CONNECT PCHANNEL Gate
+
+
+/////////////////////////////////////////////////////////////////
+////////////////LVS Property Definition//////////////////////////
+// Compare layout vs. schematic prop R to R with error tolerance 0.1%
+LVS Spice Strict WL YES // otherwise any Lxx : length; Wxx: width
+
+
+TRACE PROPERTY MN(NMo) L L 0.1
+TRACE PROPERTY MN(NMo) W W 0.1
+
+device MN(NMo) NMOS NCHANNEL (G) SD (S) SD (D) (S D)
+//device MN(NMo) Active NCHANNEL (G) SD (S) SD (D) (S D)
+[
+PROPERTY L,W
+  L=PERIMeter_COincide(NMOS,NCHANNEL)/2
+  //L=PERIMeter_COincide(NCHANNEL,active)/2
+  AR=AREA(NCHANNEL)
+  W=AR/L
+]
+
+//TRACE PROPERTY MP(PMo) L L 0.1
+//TRACE PROPERTY MP(PMo) W W 0.1
+
+//device MP(PMo) PMOS PCHANNEL (G) PSD (S) PSD (D) (S D)
+//[
+//PROPERTY L,W
+//  L=PERIMeter_COincide(PMOS,PCHANNEL)/2
+//  AR=AREA(PCHANNEL)
+//  W=AR/L
+//]
+
+
+
+
+
