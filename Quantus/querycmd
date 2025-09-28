@@ -1,0 +1,52 @@
+echo
+status
+
+GDS NETPROP NUMBER 5
+GDS PLACEPROP NUMBER 6
+GDS DEVPROP NUMBER 7
+
+
+#LAYOUT NETLIST PIN LOCATIONS YES
+#LAYOUT NETLIST DEVICE LOCATION CENTER
+#LAYOUT NETLIST WRITE ring_osc_pseudo_E.nl
+#CELL EXTENTS WRITE ring_osc_pseudo_E.extents
+
+RESPONSE FILE ring_osc_pseudo_E.gds.map
+GDS SEED PROPERTY DEVICE ORIGINAL
+GDS MAP
+RESPONSE DIRECT
+
+GDS WRITE ring_osc_pseudo_E.agf
+
+LAYOUT NETLIST TRIVIAL PINS YES
+LAYOUT NETLIST EMPTY CELLS YES
+LAYOUT NETLIST NAMES NONE
+LAYOUT NETLIST PRIMITIVE DEVICE SUBCKTS NO
+
+LAYOUT NETLIST HIERARCHY AGF
+LAYOUT NAMETABLE WRITE ring_osc_pseudo_E.lnn EXPAND_CELLS
+LAYOUT NETLIST DEVICE TEMPLATES YES
+layout  netlist write  ring_osc_pseudo_E_pin_xy.spi
+LAYOUT NETLIST SEPARATED PROPERTIES NO
+LAYOUT SEPARATED PROPERTIES WRITE ring_osc_pseudo_E.props
+
+source    hierarchy   write   ring_osc_pseudo_E.sph
+layout    hierarchy   write   ring_osc_pseudo_E.lph
+
+NET XREF WRITE ring_osc_pseudo_E.nxf BOX LNXF
+INSTANCE XREF WRITE ring_osc_pseudo_E.ixf
+
+port table  write  ring_osc_pseudo_E.ports
+PORT TABLE CELLS WRITE ring_osc_pseudo_E.ports_cells
+
+RESPONSE FILE ring_osc_pseudo_E.devtab
+DEVICE TABLE
+RESPONSE DIRECT
+
+LVS SETTINGS REPORT WRITE ring_osc_pseudo_E.lvs_settings
+terminate
+
+
+
+
+

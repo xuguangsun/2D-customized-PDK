@@ -1,0 +1,10 @@
+;| version 1
+NMOS=Gate and Mchannel 
+NCHANNEL=NMOS not Metal3 
+SD=Metal3 and Mchannel
+connect Metal1 Gate by Via1
+connect Metal3 Gate by Via2
+connect NCHANNEL Gate 
+connect SD Metal3
+model = mos[NMo],NMo
+element mos[NMo] NMOS NCHANNEL SD 
