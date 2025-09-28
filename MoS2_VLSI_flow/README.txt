@@ -1,0 +1,7 @@
+本自动化逻辑综合与布局布线脚本基于python和tcl语言开发，其主要功能是自动化调用Cadence公司的逻辑综合工具Genus和布局布线工具Innovus对benchmark进行快速从前端到后端的全流程EDA设计。
+使用方法：
+1、将使用Verilog语言描述的Benchmark放置到Design目录下，注意子目录的名称需要和Benchmark顶层模块的名称相一致。其中包含RTL和SDC两个子目录，分别为Verilog描述和时序约束文件，可按需开发修改。
+2、将标准单元库时序仿真.lib文件放置在LIB和LIBS/lib/max和LIBS/lib/min路径下，分别供Genus和Innovus使用。
+3、将标准单元库版图信息和工艺规则LEF文件放置在LEF目录下；如果工艺LEF文件和标准单元LEF文件是分开的，则将工艺LEF文件单独放置于BasicLEF路径下。
+4、在VNC环境中，运行命令“Python Main.py”,该脚本会自动生成一个或多个（和Design目录下Benchemark数量一致）新terminal，在每个terminal当中，自动化运行综合与布局布线
+5、当整个EDA后端流程走完且没有“显著error”时，新生成的terminal会停留在innovus命令行处，可输入“win”命令，打开innovus的GUI界面，查看生成的后端版图。
