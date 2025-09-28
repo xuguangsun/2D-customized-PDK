@@ -1,0 +1,63 @@
+#
+# OPTION COMMAND FILE created by Cadence Quantus Extraction Version 21.2.2-p045 from CCL
+#
+capacitance \
+	 -decoupling_factor 1.0 \
+	 -ground_net "GND"
+distributed_processing \
+	 -multi_cpu 1
+extract \
+	 -selection "all" \
+	 -type "rc_coupled"
+extraction_setup \
+	 -array_vias_spacing "auto" \
+	 -max_fracture_length infinite \
+	 -max_fracture_length_unit "MICRONS" \
+	 -max_via_array_size \
+		"auto" \
+	 -net_name_space "SCHEMATIC"
+filter_coupling_cap \
+	 -coupling_cap_threshold_absolute 0.01 \
+	 -coupling_cap_threshold_relative 0.001
+filter_res \
+	 -merge_parallel_res false \
+	 -min_res 0.001
+input_db -type calibre \
+	 -design_cell_name "MoS2Inv_pseudo_E layout MoS2" \
+	 -device_property_value 7 \
+	 -directory_name "/home/xuguang/virtuosoworkspace/workspace/MoS2Inv_pseudoE_par/queryout" \
+	 -format "DFII" \
+	 -instance_property_value 6 \
+	 -layer_map_file "/home/xuguang/virtuosoworkspace/workspace/MoS2Inv_pseudoE_par/queryout/MoS2Inv_pseudo_E.gds.map" \
+	 -library_definitions_file "/home/xuguang/virtuosoworkspace/workspace/cds.lib" \
+	 -net_property_value 5 \
+	 -run_name "MoS2Inv_pseudo_E"
+log_file \
+	 -file_name "/home/xuguang/virtuosoworkspace/workspace/MoS2Inv_pseudoE_par/queryout/qrc.MoS2Inv_pseudo_E.log"
+output_db -type extracted_view \
+	 -cap_component "pcapacitor ivpcell" \
+	 -cap_property_name "c" \
+	 -cdl_out_map_directory \
+		"/home/xuguang/virtuosoworkspace/workspace/MoS2Inv_pseudoE_par" \
+	 -device_finger_delimiter "@" \
+	 -enable_cellview_check false \
+	 -include_cap_model "false" \
+	 -include_parasitic_cap_model "true" \
+	 -include_parasitic_res_length true \
+	 -include_parasitic_res_model "true" \
+	 -include_parasitic_res_width true \
+	 -include_res_model "true" \
+	 -res_component "presistor ivpcell" \
+	 -res_property_name "r" \
+	 -transfer_net_expression true \
+	 -view_name "av_extracted"
+output_setup \
+	 -directory_name "/tmp/qrc_11438" \
+	 -temporary_directory_name "MoS2Inv_pseudo_E"
+process_technology \
+	 -technology_directory \
+		"/home/xuguang/virtuosoworkspace/workspace/MoS2Inv_pseudoE_par" \
+	 -temperature \
+		"25.0"
+
+
