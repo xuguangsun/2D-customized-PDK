@@ -1,7 +1,8 @@
-本自动化逻辑综合与布局布线脚本基于python和tcl语言开发，其主要功能是自动化调用Cadence公司的逻辑综合工具Genus和布局布线工具Innovus对benchmark进行快速从前端到后端的全流程EDA设计。
-使用方法：
-1、将使用Verilog语言描述的Benchmark放置到Design目录下，注意子目录的名称需要和Benchmark顶层模块的名称相一致。其中包含RTL和SDC两个子目录，分别为Verilog描述和时序约束文件，可按需开发修改。
-2、将标准单元库时序仿真.lib文件放置在LIB和LIBS/lib/max和LIBS/lib/min路径下，分别供Genus和Innovus使用。
-3、将标准单元库版图信息和工艺规则LEF文件放置在LEF目录下；如果工艺LEF文件和标准单元LEF文件是分开的，则将工艺LEF文件单独放置于BasicLEF路径下。
-4、在VNC环境中，运行命令“Python Main.py”,该脚本会自动生成一个或多个（和Design目录下Benchemark数量一致）新terminal，在每个terminal当中，自动化运行综合与布局布线
-5、当整个EDA后端流程走完且没有“显著error”时，新生成的terminal会停留在innovus命令行处，可输入“win”命令，打开innovus的GUI界面，查看生成的后端版图。
+This automated logic synthesis and place-and-route script is developed in Python and Tcl, with the primary function of automatically invoking Cadence’s logic synthesis tool Genus and place-and-route tool Innovus to perform a rapid full-flow EDA design from front-end to back-end on given benchmarks.
+
+Usage Instructions:
+1.Place the benchmark described in Verilog under the Design directory. Note that the subdirectory name must be consistent with the top-level module name of the benchmark. Within it, two subdirectories should be included: RTL (Verilog description) and SDC (timing constraints), which can be modified as needed.
+2.Place the standard-cell library timing simulation .lib files under LIB and LIBS/lib/max and LIBS/lib/min, to be used by Genus and Innovus, respectively.
+3.Place the standard-cell library layout information and process rule LEF files under the LEF directory. If the process LEF file and the standard-cell LEF file are separate, place the process LEF file individually under the BasicLEF path.
+4.In a VNC environment, run the command python Main.py. The script will automatically generate one or more new terminals (depending on the number of benchmarks under the Design directory). In each terminal, logic synthesis and place-and-route will be executed automatically.
+5.When the entire EDA back-end flow completes without “significant errors,” the newly generated terminals will remain at the Innovus command line. You can then enter the command win to launch the Innovus GUI and inspect the generated back-end layout.
